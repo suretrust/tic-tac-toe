@@ -15,17 +15,10 @@ player2 = players_arr[1]
 puts "#{player1.name} will be 'X' and #{player2.name} will be 'O'"
 board = [%w[_ _ _], %w[_ _ _], %w[_ _ _]]
 
-def show_board(board)
-  puts " \tA B C"
-  board.each_with_index do |row, x|
-    print "#{x + 1}\t"
-    row.each_with_index do |item, _y|
-      print "#{item} "
-    end
-    puts ''
-  end
-end
-show_board(board)
+
+new_b = Board.new
+new_b.show_board
+
 puts "#{player1.name} starts!"
 
 players_arr.each do |item|
@@ -34,7 +27,7 @@ players_arr.each do |item|
   item_input = gets.chomp
   # puts "#{item}'s input is #{item_input}"
 
-  show_board(board)
+  new_b.show_board
 
   #check array 
 end
