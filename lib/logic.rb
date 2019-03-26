@@ -20,7 +20,7 @@ end
 
 class Board
   attr_accessor :board
-  
+
   def initialize
     @board = [%w[_ _ _], %w[_ _ _], %w[_ _ _]]
   end
@@ -34,20 +34,49 @@ class Board
       end
       puts ''
     end
-  end 
+  end
 
-  def update_board
+  def update_board(input, token)
+    puts input.upcase
+    case input
+    when '1A'
+      @board[0][0] = token
+    when '1B'
+      @board[0][1] = token
+    when '1C'
+      @board[0][2] = token
+    when '2A'
+      @board[1][0] = token
+    when '2B'
+      @board[1][1] = token
+    when '2C'
+      @board[1][2] = token
+    when '3A'
+      @board[2][0] = token
+    when '3B'
+      @board[2][1] = token
+    when '3C'
+      @board[2][2] = token
+    end
+  end
+
+  def player_wins
+    @board.each_with_index do |item, row|
+      item.each_with_index do |i, col|
+        if item.uniq.length == 1
+          puts "Player wins"
+        elsif
+        end
+      end
+    end
     
   end
-  
+
 end
 
+# def update_board
 
-
-
-#def update_board
-    
-  #end
+# end
 # class Game
 #   over?
 #
