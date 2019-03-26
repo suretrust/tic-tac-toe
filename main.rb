@@ -1,4 +1,4 @@
-puts "A Tic-Tac-Toe game"
+puts 'A Tic-Tac-Toe game'
 
 print 'Type in your name (player 1) to play the game: '
 player1 = gets.chomp.upcase
@@ -21,7 +21,8 @@ show_board(board)
 puts "#{player1} starts!"
 players = [player1, player2]
 players.each do |item|
-  print "#{item}, select the spot you want to play on by using the number of the row and the letter of the column (e.g: 1A): "
+  print "#{item}, select the spot you want to play on by using the number
+  of the row and the letter of the column (e.g: 1A): "
   item_input = gets.chomp
   # puts "#{item}'s input is #{item_input}"
 
