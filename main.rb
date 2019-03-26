@@ -23,7 +23,7 @@ players = [player1, player2]
 players.each do |item|
   print "#{item}, select the spot you want to play on by using the number
   of the row and the letter of the column (e.g: 1A): "
-  item_input = gets.chomp
+  # item_input = gets.chomp
   # puts "#{item}'s input is #{item_input}"
 
   show_board(board)
