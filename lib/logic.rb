@@ -66,6 +66,14 @@ class Board
   def update_board(input, token)
     @board[input.to_i - 1] = token
   end
+
+  def slot_available(move)
+    if @board.to_set.include?(move)
+      true
+    else
+      false
+    end
+  end
 end
 
 # def update_board
