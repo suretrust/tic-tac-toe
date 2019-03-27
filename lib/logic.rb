@@ -1,4 +1,20 @@
+require 'set'
+
+# class Game
 class Game
+  attr_accessor :over
+
+  WINNING_SETS = [
+    Set[1, 2, 3],
+    Set[4, 5, 6],
+    Set[7, 8, 9],
+    Set[1, 4, 7],
+    Set[1, 5, 9],
+    Set[2, 5, 8],
+    Set[3, 5, 7],
+    Set[3, 6, 9]
+  ].freeze
+
   def initialize
     @over = false
   end
@@ -6,72 +22,50 @@ class Game
   def self.create_players(name1, name2)
     [Player.new(name1, 'X', false), Player.new(name2, 'O', false)]
   end
+
+  def player_wins(moves)
+    result = false
+    WINNING_SETS.each do |set|
+      next unless set.subset?(moves.to_set)
+
+      result = true
+      break
+    end
+    result
+  end
 end
 
+# class Player
 class Player
-  attr_accessor :name, :token, :won
+  attr_accessor :name, :token, :won, :moves
 
   def initialize(name, token, won)
     @name = name
     @token = token
     @won = won
+    @moves = []
   end
 end
 
+# class Board
 class Board
   attr_accessor :board
 
   def initialize
-    @board = [%w[_ _ _], %w[_ _ _], %w[_ _ _]]
+    @board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   end
 
   def show_board
-    puts " \tA B C"
-    @board.each_with_index do |row, x|
-      print "#{x + 1}\t"
-      row.each_with_index do |item, _y|
-        print "#{item} "
-      end
-      puts ''
+    @board.each_with_index do |item, i|
+      print "\n+- - - - - -+ \n| " if (i % 3).zero?
+      print "#{item} | "
+      puts "\n+- - - - - -+ \n\n" if i == 8
     end
   end
 
   def update_board(input, token)
-    puts input.upcase
-    case input
-    when '1A'
-      @board[0][0] = token
-    when '1B'
-      @board[0][1] = token
-    when '1C'
-      @board[0][2] = token
-    when '2A'
-      @board[1][0] = token
-    when '2B'
-      @board[1][1] = token
-    when '2C'
-      @board[1][2] = token
-    when '3A'
-      @board[2][0] = token
-    when '3B'
-      @board[2][1] = token
-    when '3C'
-      @board[2][2] = token
-    end
+    @board[input.to_i - 1] = token
   end
-
-  def player_wins
-    @board.each_with_index do |item, row|
-      item.each_with_index do |i, col|
-        if item.uniq.length == 1
-          puts "Player wins"
-        elsif
-        end
-      end
-    end
-    
-  end
-
 end
 
 # def update_board
