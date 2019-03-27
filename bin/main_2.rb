@@ -24,8 +24,8 @@ begin
 
   until game.over
     players_arr.each do |player|
-      print "#{player.name}, select the spot you want to play on" << 
-      " by entering the corresponding number, from 1 to 9: "
+      print "#{player.name}, select the spot you want to play on" \
+            ' by entering the corresponding number, from 1 to 9: '
       move = gets.chomp.to_i
       if !move.between?(1, 9)
         puts 'Wrong input, provide a number from 1 to 9. '
