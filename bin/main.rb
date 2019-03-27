@@ -1,32 +1,57 @@
+require_relative '../lib/logic.rb'
+
+game = Game.new
 puts 'A Tic-Tac-Toe game'
 
-print 'Type in your name (player 1) to play the game: '
-player1 = gets.chomp.upcase
-print 'Type in your name (player 2) to play the game: '
-player2 = gets.chomp.upcase
-puts "#{player1} will be O and #{player2} will be X"
-board = [%w[_ _ _], %w[_ _ _], %w[_ _ _]]
+begin
+  print 'Type in your name (player 1) to play the game: '
+  name1 = gets.chomp.upcase
+  name1 = 'Player 1' if name1 == ''
+  print 'Type in your name (player 2) to play the game: '
+  name2 = gets.chomp.upcase
+  name2 = 'Player 2' if name2 == ''
 
-def show_board(board)
-  puts " \tA B C"
-  board.each_with_index do |row, x|
-    print "#{x + 1}\t"
-    row.each_with_index do |item, _y|
-      print "#{item} "
+  players_arr = Game.create_players(name1, name2)
+  player1 = players_arr[0]
+  player2 = players_arr[1]
+
+  puts "#{player1.name} will be 'X' and #{player2.name} will be 'O'"
+
+  board = Board.new
+  board.show_board
+
+  puts "#{player1.name} starts!"
+
+  until game.over
+    players_arr.each do |player|
+      print "#{player.name}, select the spot you want to play on" \
+            ' by entering the corresponding number, from 1 to 9: '
+      move = gets.chomp.to_i
+      if !move.between?(1, 9)
+        puts 'Wrong input, provide a number from 1 to 9. '
+        redo
+      elsif !board.slot_available(move)
+        puts 'That slot is already taken, choose another one. '
+        redo
+      else
+        player.moves.push(move)
+        puts player.moves
+        board.update_board(move, player.token)
+
+        board.show_board
+        if player.moves.length > 2 && game.player_wins(player.moves)
+          puts "#{player.name} is the winner!"
+          player.won = true
+        end
+        if player.won || player.moves.length == 5
+          game.over = true
+          puts 'GAME OVER!!!'
+          break
+        end
+      end
     end
-    puts ''
   end
+rescue StandardError => e
+  puts "Error: #{e}"
+  retry
 end
-show_board(board)
-puts "#{player1} starts!"
-players = [player1, player2]
-players.each do |item|
-  print "#{item}, select the spot you want to play on by using the number
-  of the row and the letter of the column (e.g: 1A): "
-  # item_input = gets.chomp
-  # puts "#{item}'s input is #{item_input}"
-
-  show_board(board)
-end
-
-puts 'GAME OVER!!!'
