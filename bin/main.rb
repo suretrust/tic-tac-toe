@@ -1,57 +1,46 @@
 require_relative '../lib/logic.rb'
+require_relative '../lib/display_controller.rb'
 
 game = Game.new
-puts 'A Tic-Tac-Toe game'
-
+DisplayController.intro_message
 begin
-  print 'Type in your name (player 1) to play the game: '
-  name1 = gets.chomp.upcase
-  name1 = 'Player 1' if name1 == ''
-  print 'Type in your name (player 2) to play the game: '
-  name2 = gets.chomp.upcase
-  name2 = 'Player 2' if name2 == ''
+  name1 = DisplayController.get_name(1)
+  name2 = DisplayController.get_name(2)
 
   players_arr = Game.create_players(name1, name2)
-  player1 = players_arr[0]
-  player2 = players_arr[1]
 
-  puts "#{player1.name} will be 'X' and #{player2.name} will be 'O'"
+  DisplayController.starting_message(players_arr[0].name, players_arr[1].name)
 
   board = Board.new
-  board.show_board
-
-  puts "#{player1.name} starts!"
+  DisplayController.show_board(board.board)
 
   until game.over
     players_arr.each do |player|
-      print "#{player.name}, select the spot you want to play on" \
-            ' by entering the corresponding number, from 1 to 9: '
-      move = gets.chomp.to_i
+      move = DisplayController.get_move(player.name)
       if !move.between?(1, 9)
-        puts 'Wrong input, provide a number from 1 to 9. '
+        DisplayController.warning_wrong
         redo
       elsif !board.slot_available(move)
-        puts 'That slot is already taken, choose another one. '
+        DisplayController.warning_taken
         redo
       else
         player.moves.push(move)
-        puts player.moves
         board.update_board(move, player.token)
 
-        board.show_board
+        DisplayController.show_board(board.board)
         if player.moves.length > 2 && game.player_wins(player.moves)
-          puts "#{player.name} is the winner!"
+          DisplayController.winner(player.name)
           player.won = true
         end
         if player.won || player.moves.length == 5
           game.over = true
-          puts 'GAME OVER!!!'
+          DisplayController.game_over
           break
         end
       end
     end
   end
 rescue StandardError => e
-  puts "Error: #{e}"
+  DisplayController.error(e)
   retry
 end
