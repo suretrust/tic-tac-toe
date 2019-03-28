@@ -1,5 +1,3 @@
-require_relative 'logic.rb'
-
 # class DisplayController
 class DisplayController
   def initialize; end
