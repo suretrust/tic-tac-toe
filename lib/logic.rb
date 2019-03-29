@@ -55,65 +55,11 @@ class Board
     @board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   end
 
-  def show_board
-    @board.each_with_index do |item, i|
-      print "\n+- - - - - -+ \n| " if (i % 3).zero?
-      print "#{item} | "
-      puts "\n+- - - - - -+ \n\n" if i == 8
-    end
-  end
-
   def update_board(input, token)
     @board[input.to_i - 1] = token
   end
 
   def slot_available(move)
-    if @board.to_set.include?(move)
-      true
-    else
-      false
-    end
+    @board.to_set.include?(move)
   end
 end
-
-# def update_board
-
-# end
-# class Game
-#   over?
-#
-# initialize 2 Players
-# assign X or O to each
-#
-# give turns
-#
-# initialize Board
-#
-# ask for input?
-#
-# update/show board
-#
-# ...
-#
-# show result "game over"
-#
-#
-# class Player?
-#   name
-#   plays_next?
-#   x_or_o
-#   won?
-#
-#   @name = name
-#
-# class Board?
-#   initialize []
-#   update(input)
-#   show
-#
-# game = Game.new
-# players_arr = Game.create_players("G", "F")
-#
-# puts "#{players_arr[0].name} player 1"
-# puts "#{players_arr[1]} player 2"
-#
