@@ -17,7 +17,7 @@ One player will be 'X' and the other will be 'O'. The aim of the game is to plac
 Players should take turns selecting a spot by entering the corresponding number 1-9. The player who gets three of their marks in line first wins.
 
 ## Installation
-To run this game, you need to have Ruby installed and follow these steps:
+To run this game, you need to have Ruby installed. Check [Ruby's documentation](https://www.ruby-lang.org/en/documentation/installation/) on how to install Ruby, then follow these steps to play the game:
 
 * Open a terminal
 * Navigate to the folder where the 'main.rb' file is located
