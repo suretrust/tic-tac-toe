@@ -1,4 +1,5 @@
 require 'set'
+require_relative 'player.rb'
 
 # class Game
 class Game
@@ -32,34 +33,5 @@ class Game
       break
     end
     result
-  end
-end
-
-# class Player
-class Player
-  attr_accessor :name, :token, :won, :moves
-
-  def initialize(name, token, won)
-    @name = name
-    @token = token
-    @won = won
-    @moves = []
-  end
-end
-
-# class Board
-class Board
-  attr_accessor :board
-
-  def initialize
-    @board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-  end
-
-  def update_board(input, token)
-    @board[input.to_i - 1] = token
-  end
-
-  def slot_available(move)
-    @board.to_set.include?(move)
   end
 end

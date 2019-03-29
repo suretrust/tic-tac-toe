@@ -1,5 +1,7 @@
-require_relative '../lib/logic.rb'
 require_relative '../lib/display_controller.rb'
+require_relative '../lib/game.rb'
+require_relative '../lib/board.rb'
+require_relative '../lib/player.rb'
 
 game = Game.new
 DisplayController.intro_message
